@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<robot name="husky" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:macro name="huskyIgn" params="robot_namespace">
+
+        <xacro:wheel_properties robot_namespace="${robot_namespace}" 
+            prefix="front_left" mu="1.0" mu2="1.0"/>
+        <xacro:wheel_properties robot_namespace="${robot_namespace}" 
+            prefix="front_right" mu="0.5" mu2="0.5"/>
+        <xacro:wheel_properties robot_namespace="${robot_namespace}" 
+            prefix="rear_left" mu="1.0" mu2="1.0"/>
+        <xacro:wheel_properties robot_namespace="${robot_namespace}" 
+            prefix="rear_right" mu="0.5" mu2="0.5"/>
+
+
+        <gazebo reference='${robot_namespace}/imu_sensor'>
+            <sensor name=
+                "${robot_namespace}/imu_sensor" type="imu">
+                <update_rate>50</update_rate>
+                <always_on>1</always_on>
+                <imu>
+                    <enable_orientation>0</enable_orientation>
+                    <angular_velocity>
+                        <x>
+                            <noise type="gaussian">
+                                <mean>0</mean>
+                                <stddev>0.009</stddev>
+                                <bias_mean>0.00075</bias_mean>
+                                <bias_stddev>0.005</bias_stddev>
+                                <dynamic_bias_stddev>0.00002</dynamic_bias_stddev>
+                                <dynamic_bias_correlation_time>400.0</dynamic_bias_correlation_time>
+                                <precision>0.00025</precision>
+                            </noise>
+                        </x>
+                        <y>
+                            <noise type="gaussian">
+                                <mean>0</mean>
+                                <stddev>0.009</stddev>
+                                <bias_mean>0.00075</bias_mean>
+                                <bias_stddev>0.005</bias_stddev>
+                                <dynamic_bias_stddev>0.00002</dynamic_bias_stddev>
+                                <dynamic_bias_correlation_time>400.0</dynamic_bias_correlation_time>
+                                <precision>0.00025</precision>
+                            </noise>
+                        </y>
+                        <z>
+                            <noise type="gaussian">
+                                <mean>0</mean>
+                                <stddev>0.009</stddev>
+                                <bias_mean>0.00075</bias_mean>
+                                <bias_stddev>0.005</bias_stddev>
+                                <dynamic_bias_stddev>0.00002</dynamic_bias_stddev>
+                                <dynamic_bias_correlation_time>400.0</dynamic_bias_correlation_time>
+                                <precision>0.00025</precision>
+                            </noise>
+                        </z>
+                    </angular_velocity>
+                    <linear_acceleration>
+                        <x>
+                            <noise type="gaussian">
+                                <mean>0</mean>
+                                <stddev>0.021</stddev>
+                                <bias_mean>0.05</bias_mean>
+                                <bias_stddev>0.0075</bias_stddev>
+                                <dynamic_bias_stddev>0.000375</dynamic_bias_stddev>
+                                <dynamic_bias_correlation_time>175.0</dynamic_bias_correlation_time>
+                                <precision>0.005</precision>
+                            </noise>
+                        </x>
+                        <y>
+                            <noise type="gaussian">
+                                <mean>0</mean>
+                                <stddev>0.021</stddev>
+                                <bias_mean>0.05</bias_mean>
+                                <bias_stddev>0.0075</bias_stddev>
+                                <dynamic_bias_stddev>0.000375</dynamic_bias_stddev>
+                                <dynamic_bias_correlation_time>175.0</dynamic_bias_correlation_time>
+                                <precision>0.005</precision>
+                            </noise>
+                        </y>
+                        <z>
+                            <noise type="gaussian">
+                                <mean>0</mean>
+                                <stddev>0.021</stddev>
+                                <bias_mean>0.05</bias_mean>
+                                <bias_stddev>0.0075</bias_stddev>
+                                <dynamic_bias_stddev>0.000375</dynamic_bias_stddev>
+                                <dynamic_bias_correlation_time>175.0</dynamic_bias_correlation_time>
+                                <precision>0.005</precision>
+                            </noise>
+                        </z>
+                    </linear_acceleration>
+                </imu>
+            </sensor>
+        </gazebo>
+
+        <gazebo reference='${robot_namespace}/front_laser'>
+            <sensor name=
+                "${robot_namespace}/front_laser" type="gpu_lidar">
+                <update_rate>10</update_rate>
+                <visualize>0</visualize>
+                <lidar>
+                    <scan>
+                        <horizontal>
+                            <samples>1800</samples>
+                            <resolution>1</resolution>
+                            <min_angle>-3.14159</min_angle>
+                            <max_angle>3.14159</max_angle>
+                        </horizontal>
+                        <vertical>
+                            <samples>16</samples>
+                            <resolution>1</resolution>
+                            <min_angle>-0.261799</min_angle>
+                            <max_angle>0.261799</max_angle>
+                        </vertical>
+                    </scan>
+                    <range>
+                        <min>0.05</min>
+                        <max>100</max>
+                        <resolution>0.01</resolution>
+                    </range>
+                    <noise>
+                        <type>gaussian</type>
+                        <mean>0</mean>
+                        <stddev>0.01</stddev>
+                    </noise>
+                </lidar> 
+            </sensor>
+        </gazebo>
+
+        <gazebo reference='${robot_namespace}/camera_front'>
+            <sensor name=
+                '${robot_namespace}/camera_front' type='rgbd_camera'>
+                <update_rate>20</update_rate>
+                <camera name="camera_front">
+                    <horizontal_fov>1.0472</horizontal_fov>
+                    <lens>
+                        <intrinsics>
+                            <!-- fx = fy = width / ( 2 * tan (hfov / 2 ) ) -->
+                            <fx>277.1</fx>
+                            <fy>277.1</fy>
+                            <!-- cx = ( width + 1 ) / 2 -->
+                            <cx>160.5</cx>
+                            <!-- cy = ( height + 1 ) / 2 -->
+                            <cy>120.5</cy>
+                            <s>0</s>
+                        </intrinsics>
+                    </lens>
+                    <distortion>
+                        <k1>0.0</k1>
+                        <k2>0.0</k2>
+                        <k3>0.0</k3>
+                        <p1>0.0</p1>
+                        <p2>0.0</p2>
+                        <center>0.5 0.5</center>
+                    </distortion>
+                    <image>
+                        <width>320</width>
+                        <height>240</height>
+                        <format>R8G8B8</format>
+                    </image>
+                    <clip>
+                        <near>0.01</near>
+                        <far>300</far>
+                    </clip>
+                    <depth_camera>
+                        <clip>
+                        <near>0.1</near>
+                        <far>10</far>
+                        </clip>
+                    </depth_camera>
+                    <noise>
+                        <type>gaussian</type>
+                        <mean>0</mean>
+                        <stddev>0.007</stddev>
+                    </noise>
+                </camera>
+                <always_on>1</always_on>
+                <visualize>0</visualize>
+            </sensor>
+        </gazebo>
+
+        <gazebo>
+            
+            <plugin
+                filename="ignition-gazebo-diff-drive-system"
+                name="ignition::gazebo::systems::DiffDrive">
+                <left_joint>${robot_namespace}/front_left_wheel_joint</left_joint>
+                <left_joint>${robot_namespace}/rear_left_wheel_joint</left_joint>
+                <right_joint>${robot_namespace}/front_right_wheel_joint</right_joint>
+                <right_joint>${robot_namespace}/rear_right_wheel_joint</right_joint>
+                <wheel_separation>0.684735</wheel_separation>
+                <wheel_radius>0.1651</wheel_radius>
+                <odom_publish_frequency>30</odom_publish_frequency>
+                <topic>/cmd_vel</topic>
+                <odom_topic>/odom</odom_topic>
+                <child_frame_id>${robot_namespace}/base_footprint</child_frame_id>
+            </plugin>
+
+            <plugin 
+                filename="ignition-gazebo-joint-state-publisher-system" 
+                name="ignition::gazebo::systems::JointStatePublisher">
+                <topic>joint_states</topic>
+            </plugin>
+
+        </gazebo>
+
+        <gazebo reference='${robot_namespace}/base_link'>
+        
+            <gravity>1</gravity>
+
+        </gazebo>
+
+    </xacro:macro>
+
+    <xacro:macro name="wheel_properties" params="robot_namespace prefix mu mu2">
+        <gazebo reference="${robot_namespace}/${prefix}_wheel_link">
+            <surface>
+                <contact>
+                    <ode>
+                        <kp>1e+07</kp>
+                        <kd>1</kd>
+                    </ode>
+                </contact>
+                <friction>
+                    <ode>
+                        <mu>${mu}</mu>
+                        <mu2>${mu2}</mu2>
+                        <kp value="10000000.0" />
+                        <kd value="1.0" />
+                        <fdir1 value="1 0 0"/>
+                    </ode>
+                </friction>
+            </surface>
+        </gazebo>
+    </xacro:macro>
+
+</robot>

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<robot name="x3" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find x3_sim)/urdf/x3.xacro"/>  
+
+    <xacro:x3 robot_namespace="x3"/>
+
+</robot>

@@ -1,0 +1,5 @@
+prepend-non-duplicate;ign_gazebo_resource_path;share/@project_name@/models
+
+prepend-non-duplicate;SDF_PATH;share/@PROJECT_NAME@/models
+
+prepend-non-duplicate;IGN_FILE_PATH;share/@PROJECT_NAME@/models

@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+    <!-- Does not Work: ign_ros2_control issues. (Protobuf error; issue 24)-->
+
+<robot name="x3" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <ros2_control name="IgnitionSystem" type="system">
+        <hardware>
+            <plugin>ign_ros2_control/IgnitionSystem</plugin>
+        </hardware>
+        <joint name="rotor_0_joint">
+            <command_interface name="effort">
+            <param name="min">-1</param>
+            <param name="max">1</param>
+            </command_interface>
+            <state_interface name="velocity"/>
+        </joint>
+    </ros2_control>
+
+    <ros2_control name="IgnitionSystem" type="system">
+        <hardware>
+            <plugin>ign_ros2_control/IgnitionSystem</plugin>
+        </hardware>
+        <joint name="rotor_1_joint">
+            <command_interface name="effort">
+            <param name="min">-1</param>
+            <param name="max">1</param>
+            </command_interface>
+            <state_interface name="velocity"/>
+        </joint>
+    </ros2_control>
+    
+    <ros2_control name="IgnitionSystem" type="system">
+        <hardware>
+            <plugin>ign_ros2_control/IgnitionSystem</plugin>
+        </hardware>
+        <joint name="rotor_2_joint">
+            <command_interface name="effort">
+            <param name="min">-1e+16</param>
+            <param name="max">1e+16</param>
+            </command_interface>
+            <state_interface name="velocity"/>
+        </joint>
+    </ros2_control>
+
+    <ros2_control name="IgnitionSystem" type="system">
+        <hardware>
+            <plugin>ign_ros2_control/IgnitionSystem</plugin>
+        </hardware>
+        <joint name="rotor_3_joint">
+            <command_interface name="effort">
+            <param name="min">-1</param>
+            <param name="max">1</param>
+            </command_interface>
+            <state_interface name="velocity"/>
+        </joint>
+    </ros2_control>
+
+    <gazebo>
+        <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
+            <parameters>$(find x3_sim)/config/x3_effort.yaml</parameters>
+        </plugin>
+    </gazebo>
+
+</robot>
