@@ -57,7 +57,8 @@ def generate_launch_description():
         arguments=[
         '-topic', '/robot_description',
         '-name', 'x3',
-        '-allow_renaming', 'true'
+        '-allow_renaming', 'true',
+        '-z', '0.1'
         ],
     )
 
@@ -65,15 +66,31 @@ def generate_launch_description():
         package='ros_ign_bridge', 
         executable='parameter_bridge', 
         arguments=[
-        '/x3/gazebo/command/twist@geometry_msgs/msg/Twist@ignition.msgs.Twist',
-        '/model/x3/odometry@nav_msgs/msg/Odometry@ignition.msgs.Odometry',
-        '/world/empty/model/x3/joint_state@sensor_msgs/msg/JointState[ignition.msgs.Model'
+            '/x3/cmd_vel@geometry_msgs/msg/Twist@ignition.msgs.Twist',
+            '/model/x3/odometry@nav_msgs/msg/Odometry@ignition.msgs.Odometry',
+            '/x3/joint_states@sensor_msgs/msg/JointState[ignition.msgs.Model',
         ],
         remappings=[
-            ('/x3/gazebo/command/twist', 'x3/cmd_vel'),
-            ('/model/x3/odometry','x3/odom'),
-            ('/world/empty/model/x3/joint_state', 'x3/joint_states'),
+            ('/model/x3/odometry', 'x3/odom')
         ],
+    )
+
+    ImageBridge = Node(
+        package='cobalt_utils',
+        executable='robustImageBridge',
+        parameters=[
+            {'frame_id': 'x3/camera_link'},
+            {'topics': ['x3/camera/image', 'x3/camera/depth_image']}
+        ],
+    )
+
+    pclBridge = Node(
+        package='cobalt_utils',
+        executable='pointCloudTransport',
+        parameters=[
+            {'frame_id' : 'x3/camera_link'},
+            {'topics': ['/x3/camera/points']}
+        ]
     )
 
     odomTotransform = Node(
@@ -113,6 +130,10 @@ def generate_launch_description():
         ignition_spawn_entity,
 
         bridge,
+
+        ImageBridge,
+
+        pclBridge,
 
         odomTotransform,
 

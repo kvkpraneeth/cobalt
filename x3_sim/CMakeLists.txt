@@ -14,6 +14,7 @@ find_package(urdf REQUIRED)
 find_package(xacro REQUIRED)
 find_package(cobalt_utils REQUIRED)
 
+
 install(DIRECTORY meshes urdf launch rviz
   DESTINATION share/${PROJECT_NAME}
 )

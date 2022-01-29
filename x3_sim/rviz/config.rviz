@@ -61,31 +61,36 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        X3/base_footprint:
+        x3/base_footprint:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        X3/base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        X3/rotor_0:
+        x3/base_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        X3/rotor_1:
+        x3/camera_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        X3/rotor_2:
+        x3/rotor_0:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        X3/rotor_3:
+        x3/rotor_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        x3/rotor_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        x3/rotor_3:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -98,7 +103,7 @@ Visualization Manager:
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: X3/odom
+    Fixed Frame: x3/odom
     Frame Rate: 30
   Name: root
   Tools:
