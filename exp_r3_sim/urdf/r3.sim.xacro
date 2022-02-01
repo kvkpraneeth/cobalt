@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<robot name="r3" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find exp_r3_sim)/urdf/r3.xacro"/>  
+
+    <xacro:husky robot_namespace="r3"/>
+
+</robot>
